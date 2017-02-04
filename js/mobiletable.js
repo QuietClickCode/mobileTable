@@ -84,7 +84,7 @@
             }
             clickFn(index, row);
         })
-        
+
         rightTr.click(function(){
             row = {};
             var index = $(this).index();
@@ -107,12 +107,7 @@
         excelTableStyle(this, ltwidthJson, widthJson);
         return this;
     }
- 
-})(jQuery);
-
-
-
-function excelTableStyle($this, ltwidthJson, widthJson) {
+    function excelTableStyle($this, ltwidthJson, widthJson) {
     var container = $this;
     container.css("width", $(window).width());
     
@@ -158,76 +153,80 @@ function excelTableStyle($this, ltwidthJson, widthJson) {
     function setDivWidth(obj) {
 
         $(obj).find("div").each(function (index) {
-            if (!widthJson[index]) {
-                widthJson[index] = 0;
-            }
-            if (widthJson[index] < $(this).width()) {
-                widthJson[index] = $(this).width();
-            }
-        });
-    }
-
-    if(ltTable.find("tr").length){
-        ltTable.find("tr").find("td").each(function(index){
-            $(this).width(ltwidthJson[0])
-        })
-        ltTable.find("tr").find("td").each(function(index){
-            $(this).width(ltwidthJson[0]);
-        })
-    }
-    
-    topTable.find("tr").each(function () {
-        setDivWidth(this);
-    });
-    rightTable.find("tr").each(function () {
-        setDivWidth(this);
-    });
-
-    topTable.find("tr:first div").each(function (index) {
-        $(this).width(widthJson[index]);
-    });
-    rightTable.find("tr:first div").each(function (index) {
-        $(this).width(widthJson[index]);
-    });
-    
-
-    container.scroll(function () {
-        var currentScrollTop = $(this).scrollTop(),
-            currentScrollLeft = $(this).scrollLeft();
-        topTable.find(".table-mask").css("left", -currentScrollLeft + "px");
-        leftTable.find(".table-mask").css("top", -currentScrollTop + "px");
-
-    });
-
-    $(document).scroll(function () {
-        var currentScrollTop = $(this).scrollTop(),
-            currentScrollLeft = $(this).scrollLeft();
-        ltTable.css("marginTop", -currentScrollTop + "px");
-        ltTable.css("marginLeft", -currentScrollLeft + "px");
-        topTable.css("marginTop", -currentScrollTop + "px");
-        topTable.css("marginLeft", ltTableWidth - currentScrollLeft + "px");
-        leftTable.css("marginTop", ltTableHeight - currentScrollTop + "px");
-        leftTable.css("marginLeft", -currentScrollLeft + "px");
-
-    });
-
-    $(window).resize(function () {
-        container.width($(window).width())
-        $(document).scroll();
-    });
-
-    timerLT = setInterval(function () {
-        if (containerWidth != container.width() || containerHeight != container.height()) {
-            topTable.width(container.width() - ltTableWidth - (container.innerWidth() - container[0].clientWidth));
-            leftTable.height(container.height() - ltTableHeight - (container.innerHeight() - container[0].clientHeight));
-
-            containerWidth = container.width();
-            containerHeight = container.height();
-
-            container.scroll();// for IE
-
+                if (!widthJson[index]) {
+                    widthJson[index] = 0;
+                }
+                if (widthJson[index] < $(this).width()) {
+                    widthJson[index] = $(this).width();
+                }
+            });
         }
-        ;
 
-    }, 0);
-};
+        if(ltTable.find("tr").length){
+            ltTable.find("tr").find("td").each(function(index){
+                $(this).width(ltwidthJson[0])
+            })
+            ltTable.find("tr").find("td").each(function(index){
+                $(this).width(ltwidthJson[0]);
+            })
+        }
+        
+        topTable.find("tr").each(function () {
+            setDivWidth(this);
+        });
+        rightTable.find("tr").each(function () {
+            setDivWidth(this);
+        });
+
+        topTable.find("tr:first div").each(function (index) {
+            $(this).width(widthJson[index]);
+        });
+        rightTable.find("tr:first div").each(function (index) {
+            $(this).width(widthJson[index]);
+        });
+        
+
+        container.scroll(function () {
+            var currentScrollTop = $(this).scrollTop(),
+                currentScrollLeft = $(this).scrollLeft();
+            topTable.find(".table-mask").css("left", -currentScrollLeft + "px");
+            leftTable.find(".table-mask").css("top", -currentScrollTop + "px");
+
+        });
+
+        $(document).scroll(function () {
+            var currentScrollTop = $(this).scrollTop(),
+                currentScrollLeft = $(this).scrollLeft();
+            ltTable.css("marginTop", -currentScrollTop + "px");
+            ltTable.css("marginLeft", -currentScrollLeft + "px");
+            topTable.css("marginTop", -currentScrollTop + "px");
+            topTable.css("marginLeft", ltTableWidth - currentScrollLeft + "px");
+            leftTable.css("marginTop", ltTableHeight - currentScrollTop + "px");
+            leftTable.css("marginLeft", -currentScrollLeft + "px");
+
+        });
+
+        $(window).resize(function () {
+            container.width($(window).width())
+            $(document).scroll();
+        });
+
+        timerLT = setInterval(function () {
+            if (containerWidth != container.width() || containerHeight != container.height()) {
+                topTable.width(container.width() - ltTableWidth - (container.innerWidth() - container[0].clientWidth));
+                leftTable.height(container.height() - ltTableHeight - (container.innerHeight() - container[0].clientHeight));
+
+                containerWidth = container.width();
+                containerHeight = container.height();
+
+                container.scroll();// for IE
+
+            }
+            ;
+
+        }, 0);
+    };
+})(jQuery);
+
+
+
